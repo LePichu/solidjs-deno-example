@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "lib": [
+            "deno.window",
+            "dom",
+            "esnext",
+            "./types.d.ts"
+        ],
+        "jsx": "preserve",
+        "jsxImportSource": "react"
+    },
+    "tasks": {
+        "build": "deno run --allow-env --allow-write --allow-read './scripts/build.ts'",
+        "serve": "deno run --allow-env --allow-write --allow-read --allow-net './scripts/serve.ts'"
+    },
+    "importMap": "import_map.json"
+}

@@ -1,0 +1,6 @@
+{
+    "imports": {
+        "solid-js": "https://cdn.skypack.dev/solid-js",
+        "solid-js/": "https://cdn.skypack.dev/solid-js/"
+    }
+}
