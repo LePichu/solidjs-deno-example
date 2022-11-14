@@ -1,5 +1,7 @@
 .vscode
 .idea
 
+/public/index.js
+public/index.js
 ./public/index.js
 deno.lock
