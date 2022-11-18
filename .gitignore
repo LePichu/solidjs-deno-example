@@ -1,7 +1,10 @@
 .vscode
 .idea
 
+# mfe can never be sure
+~/public/index.js
 /public/index.js
 public/index.js
 ./public/index.js
+
 deno.lock
