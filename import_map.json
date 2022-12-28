@@ -1,6 +1,10 @@
 {
     "imports": {
-        "solid-js": "https://cdn.skypack.dev/solid-js",
-        "solid-js/web": "https://cdn.skypack.dev/solid-js/web"
+        "solid-js": "npm:solid-js",
+        "solid-js/web": "npm:solid-js/web",
+        "esbuild": "https://deno.land/x/esbuild@v0.15.13/mod.js",
+        "esbuild-plugin-import-map": "https://esm.sh/esbuild-plugin-import-map@2.1.0",
+        "esbuild-plugin-solid": "https://esm.sh/esbuild-plugin-solid@0.4.2",
+        "esbuild-plugin-http-imports": "https://deno.land/x/esbuild_plugin_http_imports@v1.2.4/index.ts"
     }
 }

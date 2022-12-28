@@ -1,7 +1,7 @@
 .vscode
 .idea
 
-# mfe can never be sure
+# mfw can never be sure
 ~/public/index.js
 /public/index.js
 public/index.js

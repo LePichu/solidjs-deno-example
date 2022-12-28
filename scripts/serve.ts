@@ -1,14 +1,11 @@
-import { build } from "./build.ts"
-import Server from "https://deno.land/x/lume@v1.12.0/core/server.ts"
+import "./build.ts"
+import { serve } from "esbuild"
 
-onunload = () => {
-    Deno.removeSync("./public/index.js")
-    console.log("Exiting...")
-}
-
-build()
-
-new Server({
-    root: "./public",
-    port: 3000
-}).start()
+await serve({
+    port: 8000,
+    servedir: "public"
+}, {
+    entryPoints: [
+        "public/index.js"
+    ]
+})
