@@ -3,6 +3,6 @@ This is an example to show how to use Solid.js with Deno. It uses ESBuild under 
 
 ## Commands:
 - `build`: Builds the `index.tsx` file and outputs it to `/public/index.js`.
-- `serve`: Builds using `build` command and then serves the `public` directory to `localhost:3000`.
+- `serve`: Builds using `build` command and then serves the `public` directory to `localhost:8000`.
 
 License: MIT 
