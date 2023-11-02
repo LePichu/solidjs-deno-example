@@ -1,10 +1,9 @@
 {
     "imports": {
-        "solid-js": "npm:solid-js",
-        "solid-js/web": "npm:solid-js/web",
-        "esbuild": "https://deno.land/x/esbuild@v0.15.13/mod.js",
-        "esbuild-plugin-import-map": "https://esm.sh/esbuild-plugin-import-map@2.1.0",
-        "esbuild-plugin-solid": "https://esm.sh/esbuild-plugin-solid@0.4.2",
-        "esbuild-plugin-http-imports": "https://deno.land/x/esbuild_plugin_http_imports@v1.2.4/index.ts"
+        "solid-js": "https://esm.sh/stable/solid-js@1.8.5/es2022/solid-js.development.js",
+        "solid-js/web": "https://esm.sh/stable/solid-js@1.8.5/es2022/web.development.js",
+        "esbuild": "https://deno.land/x/esbuild@v0.19.2/mod.js",
+        "esbuild-plugin-http-imports": "https://deno.land/x/esbuild_plugin_http_imports@v1.3.0/index.ts",
+        "esbuild-plugin-solidjs-deno": "https://raw.githubusercontent.com/LePichu/esbuild-plugin-solidjs-deno/master/mod.ts"
     }
 }

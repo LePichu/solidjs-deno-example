@@ -2,6 +2,11 @@
 .idea
 
 # mfw can never be sure
+~/public/index.js.map
+/public/index.js.map
+public/index.js.map
+./public/index.js.map
+
 ~/public/index.js
 /public/index.js
 public/index.js

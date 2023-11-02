@@ -1,87 +1,41 @@
-import { build } from "esbuild"
-import { load, plugin } from "esbuild-plugin-import-map"
-import { solidPlugin } from "esbuild-plugin-solid"
+import { context } from "esbuild"
 import { httpImports } from "esbuild-plugin-http-imports"
-import { green, bold } from "https://deno.land/std@0.170.0/fmt/colors.ts"
+import { SolidPlugin } from "esbuild-plugin-solidjs-deno"
+import Server from "https://deno.land/x/lume@v1.19.2/core/server.ts"
 
-const WATCH = Deno.args.join().includes("--watch")
+const isDev = Deno.args.includes("--dev")
 
-const   MAP = JSON.parse(Deno.readTextFileSync("./import_map.json"))
-        MAP.imports["solid-js"] = "https://cdn.skypack.dev/solid-js"
-        MAP.imports["solid-js/web"] = "https://cdn.skypack.dev/solid-js/web" 
+const ctx = await context({
+    entryPoints: [
+        "src/index.tsx"
+    ],
+    bundle: true,
+    minify: !isDev,
+    sourcemap: isDev,
+    outfile: "public/index.js",
+    plugins: [
+        SolidPlugin(),
+        // @ts-ignore "Hope it works :)"
+        httpImports()
+    ],
+    format: "esm",
+    target: "esnext",
+    platform: "browser"
+})
 
-load(MAP)
-
-export async function build_project() {
-    const TIME_START = new Date()
-
-    await build({
-        entryPoints: [ 
-            "src/index.tsx",
-        ],
-        bundle: true,
-        allowOverwrite: true,
-        outfile: "public/index.js",
-        platform: "browser",
-        external: ["solid-js/web"],
-        format: "esm",
-        target: "esnext",
-        plugins: [
-            plugin(),
-            solidPlugin()
-        ],
-        incremental: WATCH,
-        watch: WATCH
+isDev ? (async () => {
+    await ctx.watch()
+    console.log("Watching for changes...")
+    const server = new Server({
+        port: 3000,
+        root: `${Deno.cwd()}/public`
     })
-    
-    await build({
-        entryPoints: [ 
-            "public/index.js",
-        ],
-        bundle: true,
-        allowOverwrite: true,
-        outfile: "public/index.js",
-        platform: "browser",
-        format: "esm",
-        target: "esnext",
-        plugins: [
-            plugin()
-        ],
-        incremental: WATCH,
-        watch: WATCH
-    })
-    
-    await build({
-        entryPoints: [ 
-            "public/index.js",
-        ],
-        bundle: true,
-        allowOverwrite: true,
-        outfile: "public/index.js",
-        platform: "browser",
-        format: "esm",
-        target: "esnext",
-        plugins: [
-            {
-                name: "exit-on-end",
-                setup(build) {
-                    build.onEnd((build) => {
-                        const TIME_END = new Date()
-                        const TIME_DIFF = new Date().setTime(TIME_END.getTime() - TIME_START.getTime())
-                        console.log(`${bold("[✅]")} Finished Building in ${green(`${TIME_DIFF.toString()} milliseconds`)}.`)
-                        if(build.errors.length > 0) console.log(build.errors)
-                        if(!WATCH) Deno.exit(0)
-                    })
-                }
-            },
-            // @ts-ignore - works fine
-            httpImports({
-                defaultToJavascriptIfNothingElseFound: true
-            })
-        ],
-        incremental: WATCH,
-        watch: WATCH
-    })
-}
 
-build_project()
+    server.start()
+    console.log("Server started at http://localhost:3000")
+})() : (async () => {
+    await ctx.rebuild()
+    await ctx.dispose()
+    console.log("Build complete!")
+    Deno.exit(0)
+})()
